@@ -31,7 +31,7 @@
       </description>
     </key>
     <key name="embed-previews" type="b">
-      <default>true</default>
+      <default>false</default>
       <summary>Show workspace previews in window list</summary>
     </key>
   </schema>
