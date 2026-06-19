@@ -1104,8 +1104,12 @@ class MolokPanel extends St.Widget {
 
     _syncPanelBackground() {
         const [hasColor, color] = Main.panel.get_theme_node().get_background_color();
-        if (hasColor)
-            this.set_style(`background-color: rgb(${color.red},${color.green},${color.blue});`);
+        if (hasColor) {
+            this.set_style(
+                `background-color: rgb(${color.red},${color.green},${color.blue});`);
+        } else {
+            this.set_style('background-color: #000000;');
+        }
     }
 
     get_transformed_position() {
