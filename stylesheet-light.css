@@ -1,0 +1,62 @@
+/*
+ * SPDX-License-Identifier: GPL-2.0-or-later
+ */
+
+@import url("stylesheet-dark.css");
+@import url("stylesheet-workspace-switcher-light.css");
+
+.molok-panel {
+    border-top-width: 0px;
+    border-bottom-width: 1px;
+  }
+
+  .molok-panel .molok-panel-button > StWidget {
+    border-radius: 3px;
+    padding: 0px 5px 0px;
+    box-shadow: none;
+    text-shadow: none;
+  }
+
+ .molok-panel-button > StWidget {
+  color: #000;
+}
+
+.molok-panel-button:hover > StWidget {
+  background-color: st-darken(#eee,5%);
+}
+
+.molok-panel-button:active > StWidget,
+.molok-panel-button:focus > StWidget {
+  background-color: st-darken(#eee, 10%);
+}
+
+.molok-panel-button.focused > StWidget {
+  background-color: st-darken(#eee,15%);
+}
+
+  .molok-panel-button.focused:hover > StWidget {
+    background-color: st-darken(#eee, 20%);
+  }
+
+  .molok-panel-button.focused:active > StWidget {
+    background-color: st-darken(#eee, 25%);
+  }
+
+.molok-panel-button.minimized > StWidget {
+  color: #aaa;
+  background-color: #f9f9f9;
+}
+
+.molok-panel-button.minimized:active > StWidget {
+  color: #aaa;
+  background-color: #f9f9f9;
+}
+
+.molok-panel-button-drag-actor {
+  background-color: #ddd;
+    border-color: #888;
+}
+
+.molok-panel-list .placeholder {
+  border-color: rgba(0,0,0,0.5);
+}

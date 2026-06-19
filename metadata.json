@@ -1,0 +1,10 @@
+{
+    "extension-id": "top-window-list.molok.github.io",
+    "uuid": "top-window-list.molok.github.io",
+    "settings-schema": "top-window-list.molok.github.io",
+    "gettext-domain": "molok-top-window-list",
+    "name": "Molok Top Window List",
+    "description": "Display a window list in the top panel.",
+    "shell-version": [ "50" ],
+    "url": "https://github.com/molok/top-window-list"
+}

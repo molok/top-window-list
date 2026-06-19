@@ -1,0 +1,52 @@
+/*
+ * SPDX-License-Identifier: GPL-2.0-or-later
+ */
+
+@import url("stylesheet-workspace-switcher-dark.css");
+
+.molok-panel-workspace-indicator.name-label {
+  box-shadow: inset 0 0 0 100px rgba(34, 34, 38, 0.17) !important;
+}
+.molok-panel-workspace-indicator.name-label:hover,
+.molok-panel-workspace-indicator.name-label:focus {
+  box-shadow: inset 0 0 0 100px rgba(34, 34, 38, 0.28) !important;
+}
+.molok-panel-workspace-indicator.name-label:active {
+  box-shadow: inset 0 0 0 100px rgba(34, 34, 38, 0.32) !important;
+}
+.molok-panel-workspace-indicator.name-label:active:hover {
+  box-shadow: inset 0 0 0 100px rgba(34, 34, 38, 0.36) !important;
+}
+
+.molok-panel-workspace-indicator .workspace {
+  background-color: #ccc;
+}
+
+.molok-panel-workspace-indicator .workspace.active {
+  border-color: #888;
+}
+
+.molok-panel-workspace-indicator-window-preview {
+  background-color: #ededed;
+  border: 1px solid #ccc;
+}
+
+.molok-panel-workspace-indicator-window-preview.active {
+  background-color: #f6f5f4;
+}
+
+.molok-panel-workspace-indicator-menu .editable-menu-item .icon-button.flat:hover {
+  background-color: st-transparentize(black, 90%);
+}
+
+.molok-panel-workspace-indicator-menu .editable-menu-item .icon-button.flat:active {
+  background-color: st-transparentize(black, 85%);
+}
+
+.molok-panel-workspace-indicator-menu .editable-menu-item .icon-button.flat:checked:hover {
+  background-color: st-darken(-st-accent-color, 10%);
+}
+
+.molok-panel-workspace-indicator-menu .editable-menu-item .icon-button.flat:checked:active {
+  background-color: st-darken(-st-accent-color, 15%);
+}
