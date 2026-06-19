@@ -5,26 +5,26 @@ EXTDIR="$(cd "$(dirname "$0")" && pwd)"
 SCHEMA_FILE="top-window-list.molok.github.io.gschema.xml"
 BUILD_DIR="$EXTDIR/_build"
 
-echo "==> Compilando schema GSettings..."
+echo "==> Compiling GSettings schema..."
 mkdir -p "$BUILD_DIR/schemas"
 cp "$EXTDIR/$SCHEMA_FILE" "$BUILD_DIR/schemas/"
 glib-compile-schemas "$BUILD_DIR/schemas/"
 
-echo "==> Verifica file JS..."
-# controllo sintattico con gjs (se disponibile)
+echo "==> Verifying JS files..."
+# syntax check with gjs (if available)
 if command -v gjs &>/dev/null; then
     for js in extension.js prefs.js workspaceIndicator.js workspacePrefs.js; do
         if gjs -c "import('file://$EXTDIR/$js')" 2>&1 | grep -qv "not found"; then
             echo "  $js: OK"
         else
-            echo "  $js: avviso - verifica manuale necessaria"
+            echo "  $js: warning - manual verification needed"
         fi
     done
 else
-    echo "  gjs non trovato, salto verifica sintassi"
+    echo "  gjs not found, skipping syntax check"
 fi
 
-echo "==> Controllo integrità..."
+echo "==> Integrity check..."
 required_files=(
     extension.js
     prefs.js
@@ -41,17 +41,17 @@ required_files=(
 missing=0
 for f in "${required_files[@]}"; do
     if [[ ! -f "$EXTDIR/$f" ]]; then
-        echo "  MANCANTE: $f"
+        echo "  MISSING: $f"
         missing=1
     fi
 done
 
 if [[ $missing -eq 0 ]]; then
-    echo "  Tutti i file richiesti presenti"
+    echo "  All required files present"
 else
-    echo "  ERRORE: file mancanti"
+    echo "  ERROR: missing files"
     exit 1
 fi
 
-echo "==> UUID estensione: top-window-list.molok.github.io"
-echo "==> Build completata in: $BUILD_DIR"
+echo "==> Extension UUID: top-window-list.molok.github.io"
+echo "==> Build complete in: $BUILD_DIR"

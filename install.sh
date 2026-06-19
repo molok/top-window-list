@@ -7,14 +7,14 @@ SCHEMA_FILE="top-window-list.molok.github.io.gschema.xml"
 
 TARGET_DIR="${1:-$HOME/.local/share/gnome-shell/extensions/$UUID}"
 
-echo "==> Installazione in: $TARGET_DIR"
+echo "==> Installing to: $TARGET_DIR"
 
 rm -rf "$TARGET_DIR"
 
 mkdir -p "$TARGET_DIR"
 mkdir -p "$TARGET_DIR/schemas"
 
-echo "==> Copia file..."
+echo "==> Copying files..."
 
 cp -v "$EXTDIR"/extension.js \
       "$EXTDIR"/prefs.js \
@@ -29,17 +29,17 @@ cp -v "$EXTDIR"/extension.js \
 
 cp -v "$EXTDIR/$SCHEMA_FILE" "$TARGET_DIR/schemas/"
 
-echo "==> Compilazione schemi GSettings..."
+echo "==> Compiling GSettings schemas..."
 glib-compile-schemas "$TARGET_DIR/schemas/"
 
-echo "==> Installazione completata"
+echo "==> Installation complete"
 echo ""
-echo "    Riavvia GNOME Shell:"
-echo "      - Wayland: logout/riavvia sessione"
-echo "      - X11:     Alt+F2 → r → Invio"
+echo "    Restart GNOME Shell:"
+echo "      - Wayland: logout/restart session"
+echo "      - X11:     Alt+F2 → r → Enter"
 echo ""
-echo "    Poi abilita l'estensione:"
+echo "    Then enable the extension:"
 echo "      gnome-extensions enable $UUID"
 echo ""
-echo "    Oppure installa come sistema (richiede sudo):"
+echo "    Or install system-wide (requires sudo):"
 echo "      ./install.sh /usr/share/gnome-shell/extensions/$UUID"
