@@ -9,6 +9,8 @@ TARGET_DIR="${1:-$HOME/.local/share/gnome-shell/extensions/$UUID}"
 
 echo "==> Installazione in: $TARGET_DIR"
 
+rm -rf "$TARGET_DIR"
+
 mkdir -p "$TARGET_DIR"
 mkdir -p "$TARGET_DIR/schemas"
 
