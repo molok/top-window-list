@@ -1035,6 +1035,11 @@ class MolokPanel extends St.Widget {
             () => this._topSpacer.set_style(
                 `height: ${Main.panel.height}px;`));
 
+        // Match the background color to the main GNOME Shell panel.
+        this._syncPanelBackground();
+        this._panelStyleChangedId = Main.panel.connect(
+            'style-changed', () => this._syncPanelBackground());
+
         const workspaceManager = global.workspace_manager;
 
         workspaceManager.connectObject('notify::n-workspaces',
@@ -1095,6 +1100,12 @@ class MolokPanel extends St.Widget {
             () => this._groupingModeChanged(), this);
         this._grouped = undefined;
         this._groupingModeChanged();
+    }
+
+    _syncPanelBackground() {
+        const [hasColor, color] = Main.panel.get_theme_node().get_background_color();
+        if (hasColor)
+            this.set_style(`background-color: rgb(${color.red},${color.green},${color.blue});`);
     }
 
     get_transformed_position() {
@@ -1497,6 +1508,10 @@ class MolokPanel extends St.Widget {
         if (this._mainPanelHeightId)
             Main.panel.disconnect(this._mainPanelHeightId);
         this._mainPanelHeightId = 0;
+
+        if (this._panelStyleChangedId)
+            Main.panel.disconnect(this._panelStyleChangedId);
+        this._panelStyleChangedId = 0;
 
         this._windowSignals.forEach((id, win) => win.disconnect(id));
         this._windowSignals.clear();
