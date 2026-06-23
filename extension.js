@@ -1119,21 +1119,24 @@ class MolokPanel extends St.Widget {
         return [x, y - this.translation_y];
     }
 
-    _onScrollEvent(actor, event) {
-        const direction = event.get_scroll_direction();
-        let diff = 0;
-        if (direction === Clutter.ScrollDirection.DOWN)
-            diff = 1;
-        else if (direction === Clutter.ScrollDirection.UP)
-            diff = -1;
-        else
-            return;
-
+    _switchToAdjacentWindow(direction) {
         const children = this._buttonList.get_children()
             .filter(c => c.visible);
+        if (children.length === 0)
+            return;
+
         const active = children.findIndex(c => c.active);
-        const newActive = Math.max(0, Math.min(active + diff, children.length - 1));
-        children[newActive].activate();
+        const newActive = Math.max(0, Math.min(active + direction, children.length - 1));
+        if (newActive !== active)
+            children[newActive].activate();
+    }
+
+    _onScrollEvent(actor, event) {
+        const scrollDirection = event.get_scroll_direction();
+        if (scrollDirection === Clutter.ScrollDirection.DOWN)
+            this._switchToAdjacentWindow(1);
+        else if (scrollDirection === Clutter.ScrollDirection.UP)
+            this._switchToAdjacentWindow(-1);
     }
 
     _onWorkspaceMenuSet() {
@@ -1554,6 +1557,17 @@ export default class MolokPanelExtension extends Extension {
         this._panels = null;
     }
 
+    _switchToAdjacentWindow(direction) {
+        const focusWindow = global.display.focus_window;
+        if (!focusWindow)
+            return;
+
+        const monitorIndex = focusWindow.get_monitor();
+        const panel = this._panels.find(p => p._monitor.index === monitorIndex);
+        if (panel)
+            panel._switchToAdjacentWindow(direction);
+    }
+
     enable() {
         this._panels = [];
 
@@ -1572,6 +1586,20 @@ export default class MolokPanelExtension extends Extension {
             () => this._buildPanels(), this);
 
         this._buildPanels();
+
+        Main.wm.addKeybinding(
+            'switch-to-window-left',
+            this._settings,
+            Meta.KeyBindingFlags.NONE,
+            Shell.ActionMode.NORMAL | Shell.ActionMode.OVERVIEW,
+            () => this._switchToAdjacentWindow(-1));
+
+        Main.wm.addKeybinding(
+            'switch-to-window-right',
+            this._settings,
+            Meta.KeyBindingFlags.NONE,
+            Shell.ActionMode.NORMAL | Shell.ActionMode.OVERVIEW,
+            () => this._switchToAdjacentWindow(1));
     }
 
     _buildPanels() {
@@ -1587,6 +1615,9 @@ export default class MolokPanelExtension extends Extension {
     }
 
     disable() {
+        Main.wm.removeKeybinding('switch-to-window-left');
+        Main.wm.removeKeybinding('switch-to-window-right');
+
         if (!this._panels)
             return;
 

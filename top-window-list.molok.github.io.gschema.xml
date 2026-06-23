@@ -34,5 +34,19 @@
       <default>false</default>
       <summary>Show workspace previews in window list</summary>
     </key>
+    <key name="switch-to-window-left" type="as">
+      <default>['&lt;Super&gt;h']</default>
+      <summary>Switch to window on the left</summary>
+      <description>
+        Keybinding to switch focus to the previous window in the list.
+      </description>
+    </key>
+    <key name="switch-to-window-right" type="as">
+      <default>['&lt;Super&gt;l']</default>
+      <summary>Switch to window on the right</summary>
+      <description>
+        Keybinding to switch focus to the next window in the list.
+      </description>
+    </key>
   </schema>
 </schemalist>

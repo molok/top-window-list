@@ -65,6 +65,42 @@ meson setup _build
 meson install -C _build
 ```
 
+## Keybindings
+
+| Action | Default | Description |
+|---|---|---|
+| Switch to window on the left | `<Super>h` | Focus the previous window in the list |
+| Switch to window on the right | `<Super>l` | Focus the next window in the list |
+
+> **⚠ Conflict note:** `<Super>h` and `<Super>l` clash with two built-in GNOME
+> Shell shortcuts: **Hide window** and **Lock screen**. To use them for window
+> switching, unbind the defaults first:
+>
+> ```sh
+> # Free up Super+H (Hide window → disabled)
+> gsettings set org.gnome.desktop.wm.keybindings minimize "[]"
+>
+> # Free up Super+L (Lock screen → disabled)
+> gsettings set org.gnome.settings-daemon.plugins.media-keys screensaver "[]"
+> ```
+>
+> A GNOME Shell restart is required after changing these (log out / log back in
+> on Wayland, or Alt+F2 → `r` → Enter on X11).
+>
+> You can change the extension's keybindings to any combination you prefer:
+>
+> ```sh
+> gsettings set org.gnome.shell.extensions.top-window-list.molok.github.io switch-to-window-left "['<Super>h']"
+> gsettings set org.gnome.shell.extensions.top-window-list.molok.github.io switch-to-window-right "['<Super>l']"
+> ```
+>
+> After changing keybindings, disable and re-enable the extension:
+>
+> ```sh
+> gnome-extensions disable top-window-list.molok.github.io
+> gnome-extensions enable top-window-list.molok.github.io
+> ```
+
 ## Preferences
 
 The extension provides the following settings via `gnome-extensions prefs`
